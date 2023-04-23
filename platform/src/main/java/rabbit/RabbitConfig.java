@@ -20,11 +20,12 @@ public class RabbitConfig {
     public RabbitConfig(String exchange) throws IOException, TimeoutException {
         this.exchange = exchange;
         createConnection();
+        createChannel();
     }
 
     public static RabbitConfig getInstance(String exchange) throws IOException, TimeoutException {
-        if(instance==null)
-            instance=new RabbitConfig(exchange);
+        if (instance == null)
+            instance = new RabbitConfig(exchange);
         return instance;
     }
 
@@ -37,19 +38,24 @@ public class RabbitConfig {
         connection = connectionFactory.newConnection();
     }
 
+    private void createChannel() throws IOException {
+        channel = connection.createChannel();
+        channel.exchangeDeclare(exchange, "direct");
+    }
+
     public Channel getChannel() throws IOException, TimeoutException {
         if (connection == null)
             createConnection();
 
         if (channel == null)
-            channel = connection.createChannel();
+            createChannel();
 
         return channel;
     }
 
-    public void declareQueue(String queueName,String routingKey) throws IOException {
+    public void declareQueue(String queueName, String routingKey) throws IOException {
         channel.queueDeclare(queueName, false, false, false, null);
-        channel.queueBind(queueName,routingKey,null);
+        channel.queueBind(queueName, exchange, routingKey);
     }
 
     public void declareQueue(String queueName) throws IOException {
@@ -57,6 +63,6 @@ public class RabbitConfig {
     }
 
     public void declareConsumer(String name, boolean autoAck, Consumer consumer) throws IOException {
-        channel.basicConsume(name,autoAck,  consumer);
+        channel.basicConsume(name, autoAck, consumer);
     }
 }

@@ -6,13 +6,13 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 import pool.MainPool;
 import rabbit.RabbitCache;
 import rabbit.RabbitConfig;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +38,7 @@ public class RabbitService {
         AMQP.BasicProperties pros = new AMQP.BasicProperties().builder()
                 .correlationId(requestData.getCorrelationId())
                 .replyTo(requestData.getQueueReply())
+                .appId(requestData.getName())
                 .build();
         rabbitConfig.getChannel().basicPublish(EXCHANGE, requestData.getRoutingKey(), pros, SerializationUtils.serialize(requestData.getData()));
         RabbitCache.put(requestData.getCorrelationId(), requestData.getFuture());
@@ -59,7 +60,7 @@ public class RabbitService {
         }
     }
 
-    private void initMainPool(List<String> poolNames){
+    private void initMainPool(List<String> poolNames) {
         MainPool.init(poolNames);
     }
 

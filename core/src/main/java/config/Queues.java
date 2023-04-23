@@ -1,11 +1,11 @@
 package config;
 
 public enum Queues {
-    ADD("ADD","addnumbers"),
-    SUBTRACT("SUBTRACT","subtractnumbers");
+    ADD("ADD", "add_numbers"),
+    SUBTRACT("SUBTRACT", "subtract_numbers");
 
-    private String name;
-    private String routingKey;
+    private final String name;
+    private final String routingKey;
 
     Queues(String name, String routingKey) {
         this.name = name;

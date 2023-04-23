@@ -2,11 +2,12 @@ package model;
 
 import java.io.Serializable;
 
-public class RequestData implements Serializable {
+public class Data implements Serializable {
     private String number1;
     private String number2;
+    private String response;
 
-    public RequestData(String number1, String number2) {
+    public Data(String number1, String number2) {
         this.number1 = number1;
         this.number2 = number2;
     }
@@ -25,5 +26,13 @@ public class RequestData implements Serializable {
 
     public void setNumber2(String number2) {
         this.number2 = number2;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 }

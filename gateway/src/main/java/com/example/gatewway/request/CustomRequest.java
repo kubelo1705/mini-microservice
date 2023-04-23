@@ -1,28 +1,28 @@
 package com.example.gatewway.request;
 
 import com.example.gatewway.config.Queues;
-import model.RequestData;
+import model.Data;
 
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class CustomRequest implements Serializable {
-    private CompletableFuture<String> future = new CompletableFuture();
+    private final CompletableFuture<String> future = new CompletableFuture();
     private String result;
-    private RequestData requestData;
-    private String workerName;
-    private String correlationId = UUID.randomUUID().toString();
-    private Queues queue;
+    private Data data;
+    private String name;
+    private final String correlationId = UUID.randomUUID().toString();
+    private final Queues queue;
 
     public String getCorrelationId() {
         return correlationId;
     }
 
-    public CustomRequest(RequestData requestData, Queues queue) {
-        this.requestData = requestData;
+    public CustomRequest(Data data, Queues queue) {
+        this.data = data;
         this.queue = queue;
-        this.workerName = queue.getQueueSend();
+        this.name = queue.getQueueSend();
     }
 
     public CompletableFuture getFuture() {
@@ -37,20 +37,20 @@ public class CustomRequest implements Serializable {
         this.result = result;
     }
 
-    public RequestData getData() {
-        return requestData;
+    public Data getData() {
+        return data;
     }
 
-    public void setData(RequestData requestData) {
-        this.requestData = requestData;
+    public void setData(Data data) {
+        this.data = data;
     }
 
-    public String getWorkerName() {
-        return workerName;
+    public String getName() {
+        return name;
     }
 
-    public void setWorkerName(String workerName) {
-        this.workerName = workerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void execute() {
