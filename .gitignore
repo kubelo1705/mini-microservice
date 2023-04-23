@@ -1,6 +1,6 @@
 # Default ignored files
 .idea/
 **/target/
-*.iml
-*.cd
-
+**/*.iml
+**/*.cd
+**/.mvn
