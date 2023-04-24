@@ -65,6 +65,10 @@ public class CustomRequest implements Serializable {
         return queue.getRoutingKeySend();
     }
 
+    public String getRoutingKeyListen(){
+        return queue.getRouting_key_listen();
+    }
+
     public String getQueueReply() {
         return queue.getQueueListen();
     }

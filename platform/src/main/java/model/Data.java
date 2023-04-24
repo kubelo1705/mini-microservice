@@ -7,11 +7,6 @@ public class Data implements Serializable {
     private String number2;
     private String response;
 
-    public Data(String number1, String number2) {
-        this.number1 = number1;
-        this.number2 = number2;
-    }
-
     public String getNumber1() {
         return number1;
     }

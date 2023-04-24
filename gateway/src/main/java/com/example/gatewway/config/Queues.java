@@ -1,8 +1,8 @@
 package com.example.gatewway.config;
 
 public enum Queues {
-    ADD("add_reply", "add_numbers", "add_reply", "add_numbers_reply"),
-    SUBTRACT("subtract_reply", "subtract_numbers", "subtract_reply", "subtract_numbers_reply");
+    ADD("ADD", "add_numbers", "add_reply", "add_numbers_reply"),
+    SUBTRACT("SUBTRACT", "subtract_numbers", "subtract_reply", "subtract_numbers_reply");
 
     Queues(String queueName, String routingKeySend, String queueListen, String routing_key_listen) {
         this.queueSend = queueName;
@@ -38,6 +38,10 @@ public enum Queues {
 
     public void setQueueListen(String queueListen) {
         this.queueListen = queueListen;
+    }
+
+    public String getRouting_key_listen() {
+        return routing_key_listen;
     }
 }
 

@@ -67,7 +67,7 @@ public class ServiceCore {
     }
 
     private void initMainPool() {
-        MainPool.init(Arrays.stream(Queues.values()).map(queue -> queue.getName()).collect(Collectors.toList()));
+        MainPool.init(Arrays.stream(Queues.values()).map(Queues::getName).collect(Collectors.toList()));
     }
 
     private Data deserialize(byte[] bytes) throws Exception {

@@ -37,7 +37,7 @@ public class RabbitService {
     public void pushMessage(CustomRequest requestData) throws IOException, TimeoutException {
         AMQP.BasicProperties pros = new AMQP.BasicProperties().builder()
                 .correlationId(requestData.getCorrelationId())
-                .replyTo(requestData.getQueueReply())
+                .replyTo(requestData.getRoutingKeyListen())
                 .appId(requestData.getName())
                 .build();
         rabbitConfig.getChannel().basicPublish(EXCHANGE, requestData.getRoutingKey(), pros, SerializationUtils.serialize(requestData.getData()));
@@ -66,7 +66,7 @@ public class RabbitService {
 
     private void initQueues() throws IOException {
         for (Queues value : Queues.values()) {
-            rabbitConfig.declareQueue(value.getQueueListen());
+            rabbitConfig.declareQueue(value.getQueueListen(), value.getRouting_key_listen());
         }
     }
 }

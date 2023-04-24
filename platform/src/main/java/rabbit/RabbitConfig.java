@@ -58,10 +58,6 @@ public class RabbitConfig {
         channel.queueBind(queueName, exchange, routingKey);
     }
 
-    public void declareQueue(String queueName) throws IOException {
-        channel.queueDeclare(queueName, false, false, false, null);
-    }
-
     public void declareConsumer(String name, boolean autoAck, Consumer consumer) throws IOException {
         channel.basicConsume(name, autoAck, consumer);
     }
